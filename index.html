@@ -1,0 +1,290 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>jtable</title>
+	<meta name="description" content="Documentation for jtable">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">jtable</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>jtable</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p><em>all links only work in docs, please read follows from <code>docs/index.html</code></em></p>
+				<a href="#jtable" id="jtable" style="color: inherit; text-decoration: none;">
+					<h1>JTable</h1>
+				</a>
+				<ul>
+					<li><a href="./storybook/index.html">storybook</a></li>
+				</ul>
+				<a href="#api-design" id="api-design" style="color: inherit; text-decoration: none;">
+					<h2>API Design</h2>
+				</a>
+				<ul>
+					<li><p>Present real DOM element structure as possible<br />
+							I used to feel frustrated when using libraries which hiding too many elements under implementation.
+							It&#39;s hard to customize styles with those libs without taking look at its implementation.
+						To code with the real DOM elements structure is a solution. We can understand what&#39;s the final element layout easily.</p>
+					</li>
+					<li><p>JSX as configuration<br />
+							There are lots of libs overused component props. It may lead to performance issues if unconcerned.
+						For example, an unmemorized config object.</p>
+						<pre><code class="language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Table</span> <span class="hljs-attr">columns</span>=<span class="hljs-string">{[...]}</span> /&gt;</span></span>;</code></pre>
+						<p>Second. As mentioned above, putting rendering function in component props is also lose chances to handle DOM elements.
+							We didn&#39;t know where this rendering function used if don&#39;t gave it a try or dived into source code.
+						JSX came out because of the good for reading. We have no reason to ignore the power of JSX.</p>
+						<p>Third. To take element structure under control is better for handling with accessibility.</p>
+					</li>
+					<li><p>Separate logical implementation and styling<br />
+							There are various React table libs, most of those are binding with a certain style lib.
+							That is good if we have almost nothing, and have to set up a table without a lot of code.
+							If we have massive legacy code and an irreplaceable style system, it may be a nightmare to conduct those libs into codebase.
+							<a href="https://github.com/tannerlinsley/react-table">react-table</a> is a good counterexample. Headless API design frees us from it but may go too far.
+							I believe there is a kind of combination of balancing those two extremes.
+							<code>@jtable/core</code> provides logical components almost the same as native table elements without any styling.
+							We can use it as a built-in element but got sort or pagination features.
+							<code>@jtable/styled</code> provides a <code>styled-components</code> version of components and theme feature.
+						Of source, we can support more kinds of styling system.</p>
+					</li>
+				</ul>
+				<a href="#packages" id="packages" style="color: inherit; text-decoration: none;">
+					<h2>Packages</h2>
+				</a>
+				<ul>
+					<li><p>@jtable/core<br />
+							Provide core logics including sort and pagination.
+							<code>@jtable/core</code> implements by React reducer.
+						Please check <a href="./modules/core_actions.html">actions</a> and <a href="./interfaces/core_context.store.html">store</a> out if interested.</p>
+					</li>
+					<li><p>@jtable/styled<br />
+							Provide theme feature through <a href="https://github.com/styled-components/styled-components">styled-components</a>
+							You can apply theme with <a href="./interfaces/styled.themeproviderprops.html">ThemeProvider</a> with
+							<a href="./modules/styled.html#builtinthemename">built-in theme</a> or
+						<a href="./interfaces/styled.theme.html">custom theme</a></p>
+					</li>
+				</ul>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h1>Usage</h1>
+				</a>
+				<p>Simple usage</p>
+				<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { TableWithProvider <span class="hljs-keyword">as</span> Table, Head, Body, Row, Column } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@jtable/core&#x27;</span>;
+
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Table</span> <span class="hljs-attr">data</span>=<span class="hljs-string">{[...]}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Head</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Row</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Column</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;#ID&quot;</span> <span class="hljs-attr">accessor</span>=<span class="hljs-string">&quot;id&quot;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Column</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Product&quot;</span> <span class="hljs-attr">accessor</span>=<span class="hljs-string">&quot;name&quot;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Column</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Price&quot;</span> <span class="hljs-attr">accessor</span>=<span class="hljs-string">&quot;price&quot;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Column</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Stock&quot;</span> <span class="hljs-attr">accessor</span>=<span class="hljs-string">&quot;stock&quot;</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Row</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Head</span>&gt;</span>
+    // Body component will take care your data rendering by default.
+    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Table</span>&gt;</span></span>
+);</code></pre>
+				<p>Complex one</p>
+				<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { TableWithProvider <span class="hljs-keyword">as</span> Table, Head, Body, Row, Column, Cell } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@jtable/core&#x27;</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">quantize</span>(<span class="hljs-params">value, fraction = <span class="hljs-number">2</span></span>) </span>{
+  <span class="hljs-keyword">const</span> digits = [
+    [<span class="hljs-number">9</span>, <span class="hljs-string">&#x27;b&#x27;</span>],
+    [<span class="hljs-number">6</span>, <span class="hljs-string">&#x27;m&#x27;</span>],
+    [<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;k&#x27;</span>],
+  ];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [digit, unit] <span class="hljs-keyword">of</span> digits) {
+    <span class="hljs-keyword">const</span> quantity = <span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">10</span>, digit);
+    <span class="hljs-keyword">const</span> fixed = (value / quantity).toFixed(fraction);
+    <span class="hljs-keyword">if</span> (value &gt;= quantity) <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${fixed}</span><span class="hljs-subst">${unit}</span>`</span>;
+  }
+}
+
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Table</span> <span class="hljs-attr">data</span>=<span class="hljs-string">{[...]}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Head</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Row</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Column</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;#ID&quot;</span> <span class="hljs-attr">accessor</span>=<span class="hljs-string">&quot;id&quot;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Column</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Product&quot;</span> <span class="hljs-attr">accessor</span>=<span class="hljs-string">&quot;name&quot;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Column</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Price&quot;</span> <span class="hljs-attr">accessor</span>=<span class="hljs-string">&quot;price&quot;</span> /&gt;</span>
+        // improve readability of stock amount
+        <span class="hljs-tag">&lt;<span class="hljs-name">Column</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Stock&quot;</span> <span class="hljs-attr">accessor</span>=<span class="hljs-string">{quantize}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Column</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Actions&quot;</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Row</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span>
+      // Or provide specific content for certain cells.
+      {(data) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">Row</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Cell</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;#ID&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{leftStickyStyle}</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Cell</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Product&quot;</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Cell</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Price&quot;</span>&gt;</span>{displayCurrency(data.price)}<span class="hljs-tag">&lt;/<span class="hljs-name">Cell</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Cell</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Stock&quot;</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Cell</span> <span class="hljs-attr">columnId</span>=<span class="hljs-string">&quot;Actions&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">{</span>`<span class="hljs-attr">product</span>/${<span class="hljs-attr">data.id</span>}/<span class="hljs-attr">edit</span>`}&gt;</span>Edit<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Cell</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Row</span>&gt;</span>
+      )}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Body</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Table</span>&gt;</span></span>
+);</code></pre>
+				<p>There are 3 kinds of usage for row components. You could find in <a href="./interfaces/core_props.bodyprops.html">BodyProps</a>.</p>
+				<p>@jtable/core provides 2 kinds of table components - <a href="./interfaces/core_props.tableprops.html">Table</a> and TableWithProvider
+				Table component is a presentation component and TableWithProvider is composition of Table and <a href="./interfaces/core_props.tableproviderprops.html">TableProvider</a>.</p>
+				<p>For more examples, check <a href="./storybook/index.html">storybook</a> out.</p>
+				<a href="#roadmap" id="roadmap" style="color: inherit; text-decoration: none;">
+					<h2>Roadmap</h2>
+				</a>
+				<p>List out features I haven&#39;t done but important.</p>
+				<ul>
+					<li><p>Configurable element type.<br />
+						Like <a href="https://github.com/mui-org/material-ui/blob/next/packages/material-ui/src/Table/Table.js#L49">material ui implmentation</a>. Users can decide what kind of element to be used, and a11y still be taken care of.</p>
+					</li>
+					<li><p>Core modularize.<br />
+							Userland is hard to extend or add features from outside.
+							But it may be possible if we refactor implementation with plugin architecture.
+						Like <a href="https://github.com/tannerlinsley/react-table/blob/master/examples/pagination/src/App.js#L66">react-table</a></p>
+					</li>
+					<li><p>Type components.<br />
+							All generic types are fallback to default as unknown.
+						Providing a way to type data is more friendly for TypeScript users.</p>
+					</li>
+					<li><p>Auto infer table cells and its order.<br />
+							It should be possible to prevent user list <Cell /> repeatedly.
+						For example, unlisted cells will be auto-generated according columns.</p>
+					</li>
+				</ul>
+				<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { Table, Head, Body, Row, Column, Cell } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@jtable/core&#x27;</span>;
+
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> (
+  &lt;Table&gt;
+    &lt;Head&gt;
+      &lt;Row&gt;
+        &lt;Column columnId=&quot;#ID&quot; accessor=&quot;id&quot; /&gt;
+        &lt;Column columnId=&quot;Product&quot; accessor=&quot;name&quot; /&gt;
+        &lt;Column columnId=&quot;Price&quot; accessor=&quot;price&quot; /&gt;
+        &lt;Column columnId=&quot;Stock&quot; accessor={quantize} /&gt;
+        &lt;Column columnId=&quot;Actions&quot; /&gt;
+      &lt;/Row&gt;
+    &lt;/Head&gt;
+    &lt;Body&gt;
+      // Or provide specific content for certain cells.
+      {(data) =&gt; (
+        &lt;Row&gt;
+          &lt;Cell columnId=&quot;#ID&quot; style={leftStickyStyle} /&gt;
+          // auto insert &lt;Cell columnId=&quot;Product&quot;&gt;
+          &lt;Cell columnId=&quot;Price&quot;&gt;{displayCurrency(data.price)}&lt;/Cell&gt;
+          // auto insert &lt;Cell columnId=&quot;Stock&quot;&gt;
+          &lt;Cell columnId=&quot;Actions&quot;&gt;
+            &lt;a href={`product/${data.id}/edit`}&gt;Edit&lt;/a&gt;
+          &lt;/Cell&gt;
+        &lt;/Row&gt;
+      )}
+    &lt;/Body&gt;
+  &lt;/Table&gt;
+);</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/core_actions.html">core/actions</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/core_context.html">core/context</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/core_props.html">core/props</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/styled.html">styled</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
