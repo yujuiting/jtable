@@ -1,0 +1,17 @@
+{
+  "name": "@jtable/styled",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist && rollup -c",
+    "watch": "rollup -c -w"
+  },
+  "peerDependencies": {
+    "@jtable/core": "*",
+    "react": "^16.13.1",
+    "styled-icons": "^10.6.0",
+    "styled-components": "^5.1.1"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@jtable/core",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "build": "rm -rf dist && rollup -c",
+    "watch": "rollup -c -w"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
+  }
+}
